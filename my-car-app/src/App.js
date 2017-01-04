@@ -3,6 +3,19 @@ import logo from './logo0000.png';
 import './App.css';
 
 
+var DataService = {
+
+	getCarList: function() {
+		return [
+			"Audi",
+			"Mercedes-Benz",
+			"Ford",
+			"Toyota",
+			"Tesla"
+
+		];
+	}
+};
 
 var AppTitle = React.createClass({
     render: function(){
@@ -13,18 +26,44 @@ var AppTitle = React.createClass({
 });
 
 
-var List = React.createClass({
-   render: function() {
-	<ul>
-	{
-		this.props.items.map(function(item) {
-			return <li key={item}>{item}</li>
-		})
-	}
-	</ul>
-   }
+var CarList = React.createClass({
+  
+  getInitialState: function(){
+     return {
+       initialItems: [
+         "Audi",
+         "Ferrari",
+         "Porche",
+         "Testla"
+       ],
+       items: []
+     }
+  },
+  componentWillMount: function(){
+    this.setState({items: this.state.initialItems})
+  },
+  render: function(){
+    return (
+      <div className="car-list">
+      	<List items={this.state.items}/>
+      </div>
+    );
+  }
 });
 
+var List = React.createClass({
+  render: function(){
+    return (
+      <ul>
+      {
+        this.props.items.map(function(item) {
+          return <li key={item}>{item}</li>
+        })
+       }
+      </ul>
+    )  
+  }
+});
 
 
 class App extends Component {
@@ -37,8 +76,10 @@ class App extends Component {
         </div>
         <p className="App-intro">
 		<AppTitle name="Cars" />
-         	There will be soon a demo app with Cars.
         </p>
+	<p className="App-carlist">
+		<CarList/>
+	</p>
       </div>
     );
   }
