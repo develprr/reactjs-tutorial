@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
 import logo from './logo0000.png'
@@ -10,6 +10,9 @@ import { Management } from './component/Management.js'
 import { Navigation } from './component/Navigation.js'
 import { Login } from './component/Login.js'
 
+import handle from 'synchronous-dispatcher'
+import dispatch from 'synchronous-dispatcher'
+import MultilayerPerceptron from 'multilayer-perceptron'
 class App extends React.Component {
 
 	constructor(props) {
@@ -25,6 +28,13 @@ class App extends React.Component {
 
 	handleExitRequest() {
 		this.setState({ loggedIn: false })
+	}
+
+	componentDidMount() {
+	/*	handle('HEY-HO-SNOW', function() {
+			alert('handle snow')
+		})
+		dispatch('HEY-HO-SNOW')*/
 	}
 
 	createViewComponent() {
