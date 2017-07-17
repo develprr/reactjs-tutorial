@@ -1,50 +1,60 @@
 import React, { Component } from 'react'
+import $ from 'jquery'
 
-import { BootstrapList } from './BootstrapList.js'
+import { BootstrapList} from './BootstrapList.js'
+import { CarModelService } from '../service/CarModelService.js'
 
 export class CarFilterList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.handleChange = this.handleChange.bind(this);
-		this.state = {items: this.getAllItems(), initialItems: this.getAllItems()};
-	}
-	getAllItems() {
-		return  [
-				"Audi",
-				"Porsche",
-				"Tesla",
-				"Bugatti",
-				"Ferrari",
-				"Lamborghini"
-			];
+		this.handleSearchPhraseChange = this.handleSearchPhraseChange.bind(this);
+		this.onCarModelSelected = this.onCarModelSelected.bind(this);
+		let carModels = CarModelService.findAll();
+		this.state = { carModels: carModels, initialCarModels: carModels };
 	}
 
-	handleChange(event) {
+
+	componentDidMount() {
+		this.configureListeners()
+	}
+
+	componentDidUpdate() {
+		this.configureListeners()
+	}
+
+	onCarModelSelected(event) {
+		event.stopPropagation()
+		let target = event.target;
+		let dataId = $(target).attr("data-id")
+		alert('car model selected ' + dataId)
+		this.props.fireCarModelSelected(dataId)
+		return false
+	}
+
+
+  configureListeners() {
+		$(".list-group-item").unbind("click")
+		$(".list-group-item").click(this.onCarModelSelected);
+	}
+
+	handleSearchPhraseChange(event) {
 		var searchPhrase = event.target.value;
-		var items = this.state.initialItems;
-		var filteredItems = [];
-		for (var i = 0; i < items.length; i++) {
-			var item = items[i];
-			if (item.toLowerCase().indexOf(searchPhrase.toLowerCase()) === -1) {
-				continue;
-			}
-			filteredItems.push(item);
-		}
-		this.setState({items: filteredItems});
-
+		var filteredModels = CarModelService.filterByName(searchPhrase);
+		console.log("filtered models: ", filteredModels)
+		this.setState({carModels: filteredModels});
 	}
 
 
 	render() {
+		// <BootstrapList items={this.state.carModels}/>
 		return (
 			<div className="form-group row">
-				<p/>
 				<div className="container-fluid">
-					<input className="form-control" type="text" placeholder="Search" onChange={this.handleChange}/>
+					<input className="form-control" type="text" placeholder="Search" onChange={this.handleSearchPhraseChange}/>
 				</div>
 				<p/>
-				<BootstrapList items={this.state.items}/>
+				<BootstrapList items={this.state.carModels}/>
 			</div>
 
 		);
