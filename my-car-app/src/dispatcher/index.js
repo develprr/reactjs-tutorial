@@ -2,7 +2,6 @@
 let _EVENT_ACTIONS = {}
 
 export function dispatch(eventName, passenger) {
-  console.log('DISPATCH ' + eventName)
   let actions = _EVENT_ACTIONS[eventName];
   if (!actions) {
     return;
