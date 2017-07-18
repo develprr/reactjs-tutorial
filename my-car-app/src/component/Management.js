@@ -3,6 +3,7 @@ import { CarDetail } from './CarDetail.js'
 import { CarFilterList } from './CarFilterList.js'
 import { Navigation } from './Navigation.js'
 import { CarModelService } from '../service/CarModelService.js'
+import { dispatch, handle, unhandle } from '../dispatcher'
 import $ from 'jquery'
 
 export class Management extends React.Component {
@@ -16,61 +17,67 @@ export class Management extends React.Component {
 		this.handleExitRequest = this.handleExitRequest.bind(this)
 	}
 
+	componentDidMount() {
+		handle('CAR-MODEL-SELECTED', this.handleCarModelSelected)
+		handle('BACK-BUTTON-CLICKED', this.handleBackwardRequest)
+	}
+
+	componentWillUnmount() {
+		unhandle('CAR-MODEL-SELECTED')
+		unhandle('BACK-BUTTON-CLICKED')
+	}
+
 	handleLoginSuccess(event) {
 		this.setState({ loggedIn: true })
-		$("#navigation-div").show()
 	}
 
 	handleCarModelSelected(carModelId) {
 		this.setState({ selectedCarModel: carModelId });
 	}
-	unSelectCarModel() {
+	deselectCarModel() {
 		var selectedCarModel = this.selectedCarModel;
 		this.setState({
 			selectedCarModel: null,
-			unSelectedCarModel: selectedCarModel
+			deselectedCarModel: selectedCarModel
 		});
 	}
 
-	reSelectCarModel() {
-		var unSelectedCarModel = this.state.unSelectedCarModel;
-		if (unSelectedCarModel) {
+	reselectCarModel() {
+		var deselectedCarModel = this.state.deselectedCarModel;
+		if (deselectedCarModel) {
 			this.setState({
-				selectedCarModel: unSelectedCarModel
-			});
+				selectedCarModel: deselectedCarModel
+			})
 		}
 	}
 
 	handleBackwardRequest() {
 		if (this.state.selectedCarModel) {
-			this.unSelectCarModel();
+			this.deselectCarModel()
 		} else {
-			this.reSelectCarModel();
+			this.reselectCarModel()
 		}
 	}
 
 	handleExitRequest() {
-		this.props.fireExitRequest();
+		this.props.fireExitRequest()
 	}
 
 	createViewComponent() {
 		if (this.state.selectedCarModel) {
 			return React.createElement(CarDetail, {
-				fireCloseRequested: this.handleCarModelUnselected,
 				selectedCarModel: this.state.selectedCarModel
 			});
 		}
-		return React.createElement(CarFilterList, {fireCarModelSelected: this.handleCarModelSelected } );
-
+		return React.createElement(CarFilterList)
 	}
+
 	render() {
 		var viewComponent = this.createViewComponent();
+		let backButtonEnabled = this.state.selectedCarModel ? true : false
 		return (
 			<div className="App">
-				<Navigation
-					fireBackwardRequest={this.handleBackwardRequest }
-					fireExitRequest={this.handleExitRequest }
-				/>
+				<Navigation backButtonEnabled={backButtonEnabled} />
 			 	{ viewComponent }
 			</div>
 

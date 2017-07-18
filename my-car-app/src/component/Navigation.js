@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
+import { dispatch } from '../dispatcher'
 
 export class Navigation extends React.Component {
 
@@ -9,26 +10,34 @@ export class Navigation extends React.Component {
 		this.onExitButtonClicked = this.onExitButtonClicked.bind(this);
 	}
 	onBackButtonClicked() {
-		this.props.fireBackwardRequest();
+		dispatch('BACK-BUTTON-CLICKED')
 	}
 
 	onExitButtonClicked() {
-		this.props.fireExitRequest();
+		dispatch('EXIT-BUTTON-CLICKED')
 	}
 
-	componentDidMount() {
-		$("#back-button").click(this.onBackButtonClicked);
-		$("#exit-button").click(this.onExitButtonClicked);
-	}
 
+
+  createBackButton() {
+		let { backButtonEnabled } = this.props
+		if (!backButtonEnabled) {
+			return null
+		}
+		return (
+		 	<button id="back-button" type="button" className="btn btn-default btn-lg pull-left" onClick={this.onBackButtonClicked}>
+				<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" ></span> Back
+			</button>
+		)
+	}
 	render() {
+
+		let backButton = this.createBackButton()
 		return (
 			<div id="navigation-div" className="row">
 				<div className="col-xs-12">
-					<button id="back-button" type="button" className="btn btn-default btn-lg pull-left">
-						<span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
-					</button>
-					<button id="exit-button" type="button" className="btn btn-default btn-lg pull-right">
+					{backButton}
+					<button id="exit-button" type="button" className="btn btn-default btn-lg pull-right" onClick={this.onExitButtonClicked}>
 						<span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> Exit
 					</button>
 				</div>

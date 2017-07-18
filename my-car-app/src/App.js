@@ -10,9 +10,8 @@ import { Management } from './component/Management.js'
 import { Navigation } from './component/Navigation.js'
 import { Login } from './component/Login.js'
 
-import handle from 'synchronous-dispatcher'
-import dispatch from 'synchronous-dispatcher'
-import MultilayerPerceptron from 'multilayer-perceptron'
+import { handle, unhandle } from './dispatcher'
+
 class App extends React.Component {
 
 	constructor(props) {
@@ -20,8 +19,12 @@ class App extends React.Component {
 		this.state = {loggedIn: true}
 		this.handleLoginSuccess = this.handleLoginSuccess.bind(this)
 		this.handleExitRequest = this.handleExitRequest.bind(this)
+		handle('EXIT-BUTTON-CLICKED',this.handleExitRequest)
 	}
 
+	componentDidMount() {
+		handle('EXIT-BUTTON-CLICKED',this.handleExitRequest)
+	}
 	handleLoginSuccess(event) {
 		this.setState({ loggedIn: true })
 	}
@@ -30,12 +33,6 @@ class App extends React.Component {
 		this.setState({ loggedIn: false })
 	}
 
-	componentDidMount() {
-	/*	handle('HEY-HO-SNOW', function() {
-			alert('handle snow')
-		})
-		dispatch('HEY-HO-SNOW')*/
-	}
 
 	createViewComponent() {
 		if (this.state.loggedIn) {

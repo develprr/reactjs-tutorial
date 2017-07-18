@@ -3,7 +3,7 @@ import $ from 'jquery'
 
 import { BootstrapList} from './BootstrapList.js'
 import { CarModelService } from '../service/CarModelService.js'
-
+import { dispatch } from '../dispatcher'
 export class CarFilterList extends React.Component {
 
 	constructor(props) {
@@ -27,8 +27,7 @@ export class CarFilterList extends React.Component {
 		event.stopPropagation()
 		let target = event.target;
 		let dataId = $(target).attr("data-id")
-		alert('car model selected ' + dataId)
-		this.props.fireCarModelSelected(dataId)
+		dispatch('CAR-MODEL-SELECTED', dataId)
 		return false
 	}
 
