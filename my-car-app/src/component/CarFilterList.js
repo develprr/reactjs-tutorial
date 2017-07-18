@@ -40,7 +40,6 @@ export class CarFilterList extends React.Component {
 	handleSearchPhraseChange(event) {
 		var searchPhrase = event.target.value;
 		var filteredModels = CarModelService.filterByName(searchPhrase);
-		console.log("filtered models: ", filteredModels)
 		this.setState({carModels: filteredModels});
 	}
 

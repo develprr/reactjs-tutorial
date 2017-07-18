@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import $ from 'jquery'
 import { dispatch } from '../dispatcher'
 
 export class Navigation extends React.Component {
