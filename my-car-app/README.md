@@ -1,5 +1,5 @@
-This project contains examples related To ReactJS programming.
+This branch contains example use of Synchronous Dispatcher design pattern.
 
-Find more information on Oppikone's [tutorials]. (http://www.oppikone.fi/blog/tutorial-index.html)
+Find more information on Synchronous Dispatcher at (http://www.oppikone.fi/blog/introducing-synchronous-dispatcher.html)
 
 

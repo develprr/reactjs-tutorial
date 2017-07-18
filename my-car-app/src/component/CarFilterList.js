@@ -31,7 +31,6 @@ export class CarFilterList extends React.Component {
 		return false
 	}
 
-
   configureListeners() {
 		$(".list-group-item").unbind("click")
 		$(".list-group-item").click(this.onCarModelSelected);
@@ -42,7 +41,6 @@ export class CarFilterList extends React.Component {
 		var filteredModels = CarModelService.filterByName(searchPhrase);
 		this.setState({carModels: filteredModels});
 	}
-
 
 	render() {
 		// <BootstrapList items={this.state.carModels}/>

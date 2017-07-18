@@ -33,12 +33,11 @@ class App extends React.Component {
 		this.setState({ loggedIn: false })
 	}
 
-
 	createViewComponent() {
 		if (this.state.loggedIn) {
-			return React.createElement(Management, { fireExitRequest: this.handleExitRequest })
+			return <Management/>
 		} else {
-			return React.createElement(Login, { fireLoginSuccess: this.handleLoginSuccess })
+			return <Login/>
 		}
 	}
 
