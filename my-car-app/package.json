@@ -9,9 +9,7 @@
     "react": "15.4.1",
     "react-dom": "15.4.1",
     "promise": "6.1.0",
-    "jquery": "3.2.1",
-    "synchronous-dispatcher": "1.0.1",
-    "multilayer-perceptron": "1.0.3"
+    "jquery": "3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
