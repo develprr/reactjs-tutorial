@@ -3,7 +3,7 @@ import $ from 'jquery'
 
 import { BootstrapList} from './BootstrapList.js'
 import { CarModelService } from '../service/CarModelService.js'
-import { dispatch } from '../dispatcher'
+import { dispatch } from  'synchronous-dispatcher'
 export class CarFilterList extends React.Component {
 
 	constructor(props) {

@@ -3,7 +3,7 @@ import { CarDetail } from './CarDetail.js'
 import { CarFilterList } from './CarFilterList.js'
 import { Navigation } from './Navigation.js'
 import { CarModelService } from '../service/CarModelService.js'
-import { dispatch, handle, unhandle } from '../dispatcher'
+import { dispatch, handle, unhandle } from 'synchronous-dispatcher'
 
 export class Management extends React.Component {
 

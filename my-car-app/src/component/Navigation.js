@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { dispatch } from '../dispatcher'
+import { dispatch } from 'synchronous-dispatcher'
 
 export class Navigation extends React.Component {
 

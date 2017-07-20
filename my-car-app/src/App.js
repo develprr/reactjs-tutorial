@@ -10,7 +10,7 @@ import { Management } from './component/Management.js'
 import { Navigation } from './component/Navigation.js'
 import { Login } from './component/Login.js'
 
-import { handle, unhandle } from './dispatcher'
+import { handle, unhandle } from  'synchronous-dispatcher'
 
 class App extends React.Component {
 
